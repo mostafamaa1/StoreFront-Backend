@@ -62,6 +62,32 @@ This script sets `ENV=test` and runs migrations to reset and create test databas
 `TOKEN_SECRET=your-secret-token`
 
 ##   DB Creation and Migrations
+#### Database
+`CREATE DATABASE database_dev;`   
+`CREATE DATABASE database_test;`
 
+#### Migrations used to Create a Tables in Database
+`db-migrate up`
+
+#### Migrations used to make Drop a Tables in Database
+`db-migrate down`
+
+#### Migrations used in this project
+
+`db-migrate create add-users-table --sql-file`  
+`db-migrate create add-products-table --sql-file`  
+`db-migrate create add-orders-table --sql-file`  
+`db-migrate create add-ordered-products-table --sql-file`
+
+## Technologies Used
+
+- [NodeJS](https://nodejs.org/en/) - The JavaScript runtime.
+- [Express](https://expressjs.com/) - The web framework.
+- [TypeScript](https://www.typescriptlang.org/) - The language used.
+- [Jasmine](https://jasmine.github.io/) - The Testing framework used.
+- [PostgreSql](https://www.postgresql.org/) - The database used
+- [Postman](https://www.postman.com/) - The program used to build and test my APIs
+
+#### Created By Mostafa Ahmed
 
 
