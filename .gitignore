@@ -1,0 +1,4 @@
+//create a .gitignore file and add the following in it
+# dependencies
+node_modules
+.env
