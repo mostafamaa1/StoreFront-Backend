@@ -1,5 +1,4 @@
 import app from '../../index';
-import jwt from 'jsonwebtoken';
 import client from '../../config';
 import supertest from 'supertest';
 import { user, userModel } from '../../models/users';

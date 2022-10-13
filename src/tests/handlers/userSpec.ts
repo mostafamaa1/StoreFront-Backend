@@ -1,8 +1,6 @@
 import app from '../../index';
-import jwt from 'jsonwebtoken';
 import client from '../../config';
 import supertest from 'supertest';
-import { token } from 'morgan';
 
 const request = supertest(app);
 

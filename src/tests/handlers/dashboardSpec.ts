@@ -1,11 +1,10 @@
 import app from '../../index';
-import jwt from 'jsonwebtoken';
 import client from '../../config';
 import supertest from 'supertest';
 import { order, orderModel } from '../../models/orders';
-import { user, userModel } from '../../models/users';
+import { user } from '../../models/users';
 import { product, productModel } from '../../models/products';
-import { OrderedProduct, dashboard } from '../../services/dashboard';
+import { OrderedProduct } from '../../services/dashboard';
 
 const orderStore = new orderModel();
 const productStore = new productModel();
