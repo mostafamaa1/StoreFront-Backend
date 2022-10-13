@@ -36,6 +36,9 @@ describe('User Model Test', () => {
         it('should have a create method', () => {
             expect(store.create).toBeDefined();
         });
+        it('should have a authentication method', () => {
+            expect(store.auth).toBeDefined();
+        });
         it('should have a update method', () => {
             expect(store.update).toBeDefined();
         });
@@ -72,6 +75,10 @@ describe('User Model Test', () => {
                     lastname: 'testLastName'
                 }
             ]);
+        }));
+        it('auth method should authenticate user information', () => __awaiter(void 0, void 0, void 0, function* () {
+            const result = yield store.auth('testUser', 'test123');
+            expect(result).toBeTruthy();
         }));
         it('update method to update the user by id', () => __awaiter(void 0, void 0, void 0, function* () {
             const result = yield store.update({

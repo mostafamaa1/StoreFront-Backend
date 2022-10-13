@@ -28,6 +28,10 @@ describe('User Model Test', (): void => {
       expect(store.create).toBeDefined();
     });
 
+    it('should have a authentication method', () => {
+      expect(store.auth).toBeDefined();
+    });
+
     it('should have a update method', () => {
       expect(store.update).toBeDefined();
     });
@@ -68,6 +72,11 @@ describe('User Model Test', (): void => {
           lastname: 'testLastName'
         }
       ]);
+    });
+
+    it('auth method should authenticate user information', async (): Promise<void> => {
+      const result = await store.auth('testUser', 'test123');
+      expect(result).toBeTruthy();
     });
 
     it('update method to update the user by id', async (): Promise<void> => {
