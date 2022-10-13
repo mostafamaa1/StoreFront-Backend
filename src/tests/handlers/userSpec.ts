@@ -15,11 +15,19 @@ const newUser = {
 const token = jwt.sign(newUser, process.env.TOKEN_SECRET as string);
 
 describe('User Endpoint Tests', (): void => {
-  it('index method should return all users', async (): Promise<void> => {
+  it('Should create a new user', async (): Promise<void> => {
     const response = await request.post('/users').send({
       username: 'testUser',
       firstname: 'testName',
       lastname: 'testLastName',
+      password: 'test123'
+    });
+    expect(response.status).toBe(200);
+  });
+
+  it('Should Authenticates user information', async (): Promise<void> => {
+    const response = await request.post('/users/auth').send({
+      username: 'testUser',
       password: 'test123'
     });
     expect(response.status).toBe(200);

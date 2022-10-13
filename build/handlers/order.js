@@ -17,8 +17,6 @@ const orderRoutes = (app) => {
     app.get('/orders', index);
     app.get('/orders/:id', show);
     app.get('/orders/user/:id', verifyToken_1.verifyAuthToken, showByUserID);
-    // app.get('/orders/active', verifyAuthToken, getActiveStatus);
-    // app.get('/orders/completed', verifyAuthToken, getCompleteStatus);
     app.post('/orders', create);
     app.put('/orders/:id', verifyToken_1.verifyAuthToken, update);
     app.delete('/orders/:id', verifyToken_1.verifyAuthToken, destroy);
@@ -53,36 +51,6 @@ const showByUserID = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.json({ error: `Could not show order by user id: ${err}` });
     }
 });
-/*
-const getActiveStatus = async (req: Request, res: Response) => {
-  try {
-    const newOrder: order = {
-      id: undefined as unknown as number,
-      status: 'active',
-      user_id: req.body.user_id,
-    }
-    const orderByStatus = await store.showActiveStatus(newOrder)
-    return res.json(orderByStatus)
-  } catch (err) {
-    res.status(400);
-    res.json({ error: `Could not show order by id: ${err}` });
-  }
-}
-
-const getCompleteStatus = async (req: Request, res: Response) => {
-  try {
-    const newOrder: order = {
-      id: undefined as unknown as number,
-      status: 'completed',
-      user_id: req.body.user_id,
-    }
-    const orderByStatus = await store.showCompleteStatus(newOrder)
-    return res.json(orderByStatus)
-  } catch (err) {
-    res.status(400);
-    res.json({ error: `Could not show order by id: ${err}` });
-  }
-} */
 // create method takes order info from request and passes it to model then returns created order
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

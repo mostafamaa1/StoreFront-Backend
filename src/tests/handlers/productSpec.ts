@@ -80,7 +80,7 @@ describe('Products Endpoint Tests', (): void => {
       expect(response.status).toBe(200);
     });
 
-    // Delete users table after all specs is tested
+    // Delete users and products table after all specs is tested
     afterAll(async (): Promise<void> => {
       const conn = await client.connect();
       await conn.query(

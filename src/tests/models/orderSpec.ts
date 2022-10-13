@@ -94,7 +94,6 @@ describe('order Model Test', (): void => {
       await conn.query(
         'DELETE FROM orders;\n ALTER SEQUENCE orders_id_seq RESTART WITH 1;'
       );
-
       conn.release();
     });
   });

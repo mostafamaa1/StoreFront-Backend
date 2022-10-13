@@ -80,7 +80,7 @@ describe('orders Endpoint Tests', () => {
                 .set('Authorization', `Bearer ${token}`);
             expect(response.status).toBe(200);
         }));
-        // Delete users table after all specs is tested
+        // Delete users and orders table after all specs is tested
         afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
             const conn = yield config_1.default.connect();
             yield conn.query('DELETE FROM users;\n ALTER SEQUENCE users_id_seq RESTART WITH 1;');

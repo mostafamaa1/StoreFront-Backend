@@ -25,11 +25,18 @@ const newUser = {
 };
 const token = jsonwebtoken_1.default.sign(newUser, process.env.TOKEN_SECRET);
 describe('User Endpoint Tests', () => {
-    it('index method should return all users', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('Should create a new user', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.post('/users').send({
             username: 'testUser',
             firstname: 'testName',
             lastname: 'testLastName',
+            password: 'test123'
+        });
+        expect(response.status).toBe(200);
+    }));
+    it('Should Authenticates user information', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.post('/users/auth').send({
+            username: 'testUser',
             password: 'test123'
         });
         expect(response.status).toBe(200);

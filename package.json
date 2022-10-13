@@ -11,8 +11,7 @@
     "start": "nodemon ./src/index.ts",
     "build": "npx tsc",
     "jasmine": "jasmine",
-    "test": "npm run build && npm run jasmine",
-    "test:db": "db-migrate --config ./database.json --env test reset && set ENV=test && db-migrate --config ./database.json --env test up && npm run test",
+    "test": "db-migrate --config ./database.json --env test reset && set ENV=test && db-migrate --config ./database.json --env test up && npm run build && npm run jasmine",
     "start:prod": "npm run build && node build/index.js"
   },
   "keywords": [],

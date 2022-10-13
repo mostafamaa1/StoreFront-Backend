@@ -53,34 +53,6 @@ export class orderModel {
     }
   }
 
-  /* //Show active Order By user ID
-    async showActiveStatus(user_id: number, status: string): Promise<order[]> {
-      try {
-        const conn = await client.connect()
-        const sql = 'SELECT * FROM orders WHERE user_id=($1) AND status=($2)'
-        const result = await conn.query(sql, [user_id, status])
-        const order = result.rows
-        conn.release()
-        return order
-      } catch (err) {
-        throw new Error(`Could not get the order error: ${err}`)
-      }
-    }
-  
-    //Show completed Order By user ID
-    async showCompleteStatus(user_id: number, status: string): Promise<order[]> {
-      try {
-        const conn = await client.connect()
-        const sql = 'SELECT * FROM orders WHERE user_id=($1) AND status=($2)'
-        const result = await conn.query(sql, [user_id, status])
-        const order = result.rows
-        conn.release()
-        return order
-      } catch (err) {
-        throw new Error(`Could not get the order error: ${err}`)
-      }
-    } */
-
   // Create order and return entered order content
   async create(o: order): Promise<order> {
     try {
