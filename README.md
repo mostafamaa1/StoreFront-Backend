@@ -62,7 +62,12 @@ BCRYPT_PASSWORD=your-secret-password
 SALT_ROUNDS=10  
 TOKEN_SECRET=your-secret-token
 ```
+## TOKEN and Authentication
 
+```sh
+# Tokens are passed along with the http header as
+Authorization   Bearer <token>
+```
 ##   DB Creation and Migrations
 
 ```sh
