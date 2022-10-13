@@ -12,9 +12,15 @@ const newUser = {
   password: 'test123'
 };
 
-const token = jwt.sign(newUser, process.env.TOKEN_SECRET as string);
-
 describe('Products Endpoint Tests', (): void => {
+  let token = '';
+
+  beforeAll(async (): Promise<void> => {
+    // Create a new user before all tests run
+    const response = await request.post('/users').send(newUser);
+    token = response.body;
+  });
+
   it('Should Fail to create new product', async (): Promise<void> => {
     const response = await request.post('/products').send({
       name: 'testproduct',
@@ -58,6 +64,7 @@ describe('Products Endpoint Tests', (): void => {
           type: 'hardware'
         })
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 
@@ -70,13 +77,15 @@ describe('Products Endpoint Tests', (): void => {
           type: 'hardware'
         })
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 
-    it('Should delete a user by id with jwt ', async (): Promise<void> => {
+    it('Should delete a product by id with jwt ', async (): Promise<void> => {
       const response = await request
         .delete('/products/1')
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 

@@ -8,19 +8,20 @@ const store = new userModel();
 
 const request = supertest(app);
 
+const newUser: user = {
+  username: 'testUser',
+  firstname: 'testName',
+  lastname: 'testLastName',
+  password: 'test123'
+};
+
 describe('orders Endpoint Tests', (): void => {
-  const newUser: user = {
-    username: 'testUser',
-    firstname: 'testName',
-    lastname: 'testLastName',
-    password: 'test123'
-  };
+  let token = '';
 
-  const token = jwt.sign(newUser, process.env.TOKEN_SECRET as string);
-
-  //Create a new user before all specs run
   beforeAll(async (): Promise<void> => {
-    await store.create(newUser as user);
+    // Create a new user before all tests run
+    const response = await request.post('/users').send(newUser);
+    token = response.body;
   });
 
   it('Should create a new order', async (): Promise<void> => {
@@ -59,6 +60,7 @@ describe('orders Endpoint Tests', (): void => {
       const response = await request
         .get('/orders/user/1')
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 
@@ -70,6 +72,7 @@ describe('orders Endpoint Tests', (): void => {
           status: 'completed'
         })
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 
@@ -77,6 +80,7 @@ describe('orders Endpoint Tests', (): void => {
       const response = await request
         .delete('/orders/1')
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 

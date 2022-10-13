@@ -2,6 +2,7 @@ import app from '../../index';
 import jwt from 'jsonwebtoken';
 import client from '../../config';
 import supertest from 'supertest';
+import { token } from 'morgan';
 
 const request = supertest(app);
 
@@ -12,16 +13,13 @@ const newUser = {
   password: 'test123'
 };
 
-const token = jwt.sign(newUser, process.env.TOKEN_SECRET as string);
-
 describe('User Endpoint Tests', (): void => {
+  let token = '';
+
   it('Should create a new user', async (): Promise<void> => {
-    const response = await request.post('/users').send({
-      username: 'testUser',
-      firstname: 'testName',
-      lastname: 'testLastName',
-      password: 'test123'
-    });
+    const response = await request.post('/users').send(newUser);
+    token = response.body;
+    console.log('token:', token);
     expect(response.status).toBe(200);
   });
 
@@ -30,6 +28,7 @@ describe('User Endpoint Tests', (): void => {
       username: 'testUser',
       password: 'test123'
     });
+    console.log('token:', token);
     expect(response.status).toBe(200);
   });
 
@@ -63,6 +62,7 @@ describe('User Endpoint Tests', (): void => {
       const response = await request
         .get('/users')
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 
@@ -70,6 +70,7 @@ describe('User Endpoint Tests', (): void => {
       const response = await request
         .get('/users/1')
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 
@@ -77,12 +78,13 @@ describe('User Endpoint Tests', (): void => {
       const response = await request
         .put('/users/1')
         .send({
-          username: 'testUser',
-          firstname: 'testName',
-          lastname: 'testLastName',
+          username: 'testUser 2',
+          firstname: 'testName 2',
+          lastname: 'testLastName 2',
           password: 'test123'
         })
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 
@@ -90,6 +92,7 @@ describe('User Endpoint Tests', (): void => {
       const response = await request
         .delete('/users/1')
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 

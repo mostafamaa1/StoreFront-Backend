@@ -1,5 +1,5 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+const __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -8,12 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
+const __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("../../index"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../../config"));
 const supertest_1 = __importDefault(require("supertest"));
 const request = (0, supertest_1.default)(index_1.default);
@@ -23,15 +22,12 @@ const newUser = {
     lastname: 'testLastName',
     password: 'test123'
 };
-const token = jsonwebtoken_1.default.sign(newUser, process.env.TOKEN_SECRET);
 describe('User Endpoint Tests', () => {
+    let token = '';
     it('Should create a new user', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.post('/users').send({
-            username: 'testUser',
-            firstname: 'testName',
-            lastname: 'testLastName',
-            password: 'test123'
-        });
+        const response = yield request.post('/users').send(newUser);
+        token = response.body;
+        console.log('token:', token);
         expect(response.status).toBe(200);
     }));
     it('Should Authenticates user information', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -39,6 +35,7 @@ describe('User Endpoint Tests', () => {
             username: 'testUser',
             password: 'test123'
         });
+        console.log('token:', token);
         expect(response.status).toBe(200);
     }));
     it('Should fail to get all users', () => __awaiter(void 0, void 0, void 0, function* () {
@@ -67,30 +64,34 @@ describe('User Endpoint Tests', () => {
             const response = yield request
                 .get('/users')
                 .set('Authorization', `Bearer ${token}`);
+            console.log('token:', token);
             expect(response.status).toBe(200);
         }));
         it('Should get users by id with jwt', () => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield request
                 .get('/users/1')
                 .set('Authorization', `Bearer ${token}`);
+            console.log('token:', token);
             expect(response.status).toBe(200);
         }));
         it('Should Update a user by id with jwt ', () => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield request
                 .put('/users/1')
                 .send({
-                username: 'testUser',
-                firstname: 'testName',
-                lastname: 'testLastName',
+                username: 'testUser 2',
+                firstname: 'testName 2',
+                lastname: 'testLastName 2',
                 password: 'test123'
             })
                 .set('Authorization', `Bearer ${token}`);
+            console.log('token:', token);
             expect(response.status).toBe(200);
         }));
         it('Should delete a user by id with jwt ', () => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield request
                 .delete('/users/1')
                 .set('Authorization', `Bearer ${token}`);
+            console.log('token:', token);
             expect(response.status).toBe(200);
         }));
         // Delete users table after all specs is tested

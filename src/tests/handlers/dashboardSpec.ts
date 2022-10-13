@@ -9,8 +9,6 @@ import { OrderedProduct, dashboard } from '../../services/dashboard';
 
 const orderStore = new orderModel();
 const productStore = new productModel();
-const userStore = new userModel();
-const board = new dashboard();
 
 const request = supertest(app);
 
@@ -38,12 +36,14 @@ const newOrderedProduct: OrderedProduct = {
   quantity: 5
 };
 
-const token = jwt.sign(newUser, process.env.TOKEN_SECRET as string);
-
 describe('Dashboard Endpoint Tests', (): void => {
+  let token = '';
+
   beforeAll(async (): Promise<void> => {
     // Create a new user before all tests run
-    await userStore.create(newUser as user);
+    const response = await request.post('/users').send(newUser);
+    token = response.body;
+
     // Create a new order before all tests run
     await orderStore.create(newOrder as order);
     // Create a new order before all tests run
@@ -67,6 +67,7 @@ describe('Dashboard Endpoint Tests', (): void => {
       const response = await request
         .get('/orders/1/products')
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 
@@ -79,6 +80,7 @@ describe('Dashboard Endpoint Tests', (): void => {
           quantity: 5
         })
         .set('Authorization', `Bearer ${token}`);
+      console.log('token:', token);
       expect(response.status).toBe(200);
     });
 
