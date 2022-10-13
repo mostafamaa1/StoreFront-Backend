@@ -45,40 +45,44 @@ This script contains formating and linting the application.
 
 ### 2. Testing
 
-`npm run test:db`
+`npm run test`
 
 This script sets `ENV=test` and runs migrations to reset and create test database and tables, then builds the application and runs testing using jasmine.
 ## ENVIRONMENT VARIABLES 
-`ENV=dev`  
-`PORT=3000`  
-`DB_HOST=localhost`     
-`DB_PORT=5432`  
-`DB_DATABASE=database_dev`  
-`DB_DATABASE_TEST=database_test`   
-`DB_USER=postgres`  
-`DB_PASS=admin`
-`BCRYPT_PASSWORD=your-secret-password`
-`SALT_ROUNDS=10`  
-`TOKEN_SECRET=your-secret-token`
+```ts
+ENV=dev  
+PORT=3000  
+DB_HOST=localhost     
+DB_PORT=5432  
+DB_DATABASE=database_dev  
+DB_DATABASE_TEST=database_test   
+DB_USER=postgres  
+DB_PASS=admin
+BCRYPT_PASSWORD=your-secret-password
+SALT_ROUNDS=10  
+TOKEN_SECRET=your-secret-token
+```
 
 ##   DB Creation and Migrations
-#### Database
-`CREATE DATABASE database_dev;`   
-`CREATE DATABASE database_test;`
 
-#### Migrations used to Create a Tables in Database
-`db-migrate up`
+```sh
+# Database
+CREATE DATABASE database_dev;   
+CREATE DATABASE database_test;
+```
+```sh
+# Migrations used to Create a Tables in Database
+db-migrate up
 
-#### Migrations used to make Drop a Tables in Database
-`db-migrate down`
+# Migrations used to make Drop a Tables in Database
+db-migrate down
 
-#### Migrations used in this project
-
-`db-migrate create add-users-table --sql-file`  
-`db-migrate create add-products-table --sql-file`  
-`db-migrate create add-orders-table --sql-file`  
-`db-migrate create add-ordered-products-table --sql-file`
-
+# Migrations used in this project
+db-migrate create add-users-table --sql-file  
+db-migrate create add-products-table --sql-file  
+db-migrate create add-orders-table --sql-file  
+db-migrate create add-ordered-products-table --sql-file
+```
 ## Technologies Used
 
 - [NodeJS](https://nodejs.org/en/) - The JavaScript runtime.

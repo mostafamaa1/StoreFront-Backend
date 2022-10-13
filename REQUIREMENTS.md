@@ -50,27 +50,35 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Data Shapes
 #### Product
+```hs
 -  id SERIAL PRIMARY KEY
 - name VARCHAR(50)
 - price INTEGER
 - type VARCHAR(50)
+```
 
 #### User
+```hs
 - id SERIAL PRIMARY KEY
-- username VARCHAR(50)
-- firstname VARCHAR(50)
-- lastname VARCHAR(50)
-- password VARCHAR(50)
+- username VARCHAR(100)
+- firstname VARCHAR(100)
+- lastname VARCHAR(100)
+- password VARCHAR(100)
+```
 
 #### Orders
+```hs
 - id SERIAL PRIMARY KEY
 - status VARCHAR(50)
-- user_id integer REEFRENCES users(id)
+- user_id INTEGER REEFRENCES users(id) ON DELETE SET NULL
+```
 
 #### order_products
+```hs
 - id SERIAL PRIMARY KEY
-- quantity VARCHAR(50)
-- product_id integer REEFRENCES products(id)
-- order_id integer REEFRENCES orders(id)
+- quantity INTEGER
+- product_id INTEGER REEFRENCES products(id) ON DELETE SET NULL
+- order_id INTEGER REEFRENCES orders(id) ON DELETE SET NULL
+```
 
 
